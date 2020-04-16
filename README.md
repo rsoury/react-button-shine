@@ -11,9 +11,9 @@ A react component button with an animated shine.
 #### How to use it? 
 ```jsx
 import React from "react";
-import addButtonShine from "react-button-shine";
+import ButtonShine from "react-button-shine";
 
-const Button = addButtonShine(MyButtonComponent);
+<ButtonShine>Hello World!</ButtonShine>;
 
-<Button>Hello World!</Button>;
+<ButtonShine as="a">I'm an anchor</ButtonShine>;
 ```
