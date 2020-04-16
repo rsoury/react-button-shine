@@ -14,12 +14,20 @@ const style = {
   letterSpacing: "0.1em"
 };
 
+const SomeComponent = ({ children, ...props }) => (
+	<button {...props}>
+		<h1>{children}</h1>
+	</button>
+);
+
 const App = () => {
 	return (
 		<>
 			<ButtonShine style={style}>I'm a button</ButtonShine>
 			<hr />
 			<ButtonShine as="a" style={style}>I'm an anchor</ButtonShine>
+			<hr />
+			<ButtonShine as={SomeComponent} style={style}>I'm a component</ButtonShine>
 		</>
 	);
 };

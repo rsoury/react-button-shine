@@ -29,8 +29,21 @@ const ButtonShine = ({
 
 	const mouseProps = {
 		onMouseMove(e, ...args) {
-			const { offsetTop, offsetLeft } = e.currentTarget;
-			setMouse([e.pageX - offsetLeft, e.pageY - offsetTop, true]);
+			e.stopPropagation();
+
+			const rect = e.currentTarget.getBoundingClientRect();
+			const scrollLeft =
+				window.pageXOffset || document.documentElement.scrollLeft;
+			const scrollTop =
+				window.pageYOffset || document.documentElement.scrollTop;
+			const offset = {
+				top: rect.top + scrollTop,
+				left: rect.left + scrollLeft
+			};
+			const x = e.pageX - offset.left;
+			const y = e.pageY - offset.top;
+
+			setMouse([x, y, true]);
 
 			return onMouseMove(e, ...args);
 		},
@@ -82,7 +95,13 @@ const ButtonShine = ({
 					</motion.div>
 				)}
 			</AnimatePresence>
-			<span style={{ display: "block", position: "relative", zIndex: "5" }}>
+			<span
+				style={{
+					display: "block",
+					position: "relative",
+					zIndex: "5"
+				}}
+			>
 				{children}
 			</span>
 		</Component>
@@ -100,6 +119,7 @@ ButtonShine.propTypes = {
 		PropTypes.string,
 		PropTypes.func,
 		PropTypes.node,
+		PropTypes.element,
 		PropTypes.arrayOf(PropTypes.node)
 	]),
 	style: PropTypes.object,
